@@ -1,0 +1,55 @@
+.exercise-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: max-height 0.3s ease, background-color 0.3s ease;
+    max-height: 90px;
+  }
+  
+  .exercise-card.expanded {
+    max-height: 500px;
+    background-color: #e8f0ff;
+  }
+  
+  .exercise-summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .exercise-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .exercise-name {
+    font-weight: 600;
+    font-size: 1rem;
+    flex: 1;
+  }
+  
+  .exercise-timer {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .exercise-rate {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .exercise-details {
+    padding: 0 1rem 1rem 1rem;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  

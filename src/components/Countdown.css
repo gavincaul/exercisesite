@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.countdown {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+}
+.set-rep-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.set-rep-line .set {
+  text-align: left;
+}
+
+.set-rep-line .rep {
+  text-align: right;
+}
+
+.part {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000000;
+}
+
+.number {
+  font-size: 1.5rem;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  background-color: transparent;
+  z-index: 2;
+}
+
+.number::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: conic-gradient(
+    rgb(238, 175, 238) var(--degree),
+    transparent calc(var(--degree) + 0.1deg)
+  );
+  background-clip: border-box;
+  --mask-image: radial-gradient(circle, transparent 64.5%, black 68%);
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
+  z-index: 1;
+}
+
+.text {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  z-index: 2;
+  margin-top: 0.5rem;
+}
+
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #005dc1;
+}
