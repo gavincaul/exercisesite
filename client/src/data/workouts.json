@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Warmup",
+    "exercises": [
+      {
+        "img": "/img/jumpingjacks.png",
+        "name": "Jumping Jacks",
+        "length": 30,
+        "rate": { "sets": 2, "reps": 20 },
+        "description": { "inst": "Take it easy", "rest": 30 },
+        "exerciseImg": "/img/jumpingjacks.png",
+        "anatomyImg": "/img/anatomy-lowerbody.png"
+      },
+      {
+        "img": "/img/plank.png",
+        "name": "Plank",
+        "length": 45,
+        "rate": { "sets": 1, "reps": 1 },
+        "description": { "inst": "Take it easy", "rest": 30 },
+        "exerciseImg": "/img/plank.png",
+        "anatomyImg": "/img/anatomy-core.png"
+      }
+    ]
+  },
+  {
+    "title": "Strength",
+    "exercises": [
+      {
+        "img": "/img/pushup.png",
+        "name": "Push Ups",
+        "length": 40,
+        "rate": { "sets": 3, "reps": 12 },
+        "description": { "inst": "Take it easy", "rest": 30 },
+        "exerciseImg": "/img/pushup.png",
+        "anatomyImg": "/img/anatomy-upperbody.png"
+      },
+      {
+        "img": "/img/squat.png",
+        "name": "Squats",
+        "length": 45,
+        "rate": { "sets": 4, "reps": 10 },
+        "description": { "inst": "Take it easy", "rest": 30 },
+        "exerciseImg": "/img/squat.png",
+        "anatomyImg": "/img/anatomy-lowerbody.png"
+      }
+    ]
+  }
+]
