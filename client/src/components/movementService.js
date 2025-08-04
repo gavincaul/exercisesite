@@ -1,25 +1,25 @@
 import axios from "axios";
-
+const BASE_URL = "https://exercisesite-1e7b88b40e5c.herokuapp.com/";
 export async function getAllMovements() {
-  const res = await axios.get("http://localhost:3001/api/movement");
+  const res = await axios.get(`${BASE_URL}/api/movement`);
   return res.data;
 }
 export async function getAllMuscles() {
-  const res = await axios.get("http://localhost:3001/api/muscles");
+  const res = await axios.get(`${BASE_URL}/api/muscles`);
   return res.data;
 }
 
 export async function getGlobalWorkouts() {
-  const res = await axios.get("http://localhost:3001/api/routine/global");
+  const res = await axios.get(`${BASE_URL}/api/routine/global`);
   return res.data;
 }
 export async function getUserWorkouts(userId) {
-  const res = await axios.get(`http://localhost:3001/api/routine/user/${userId}`);
+  const res = await axios.get(`${BASE_URL}/api/routine/user/${userId}`);
   return res.data;
 }
 
 export async function getRoutineNums() {
-  const res = await axios.get("http://localhost:3001/api/routineIDs");
+  const res = await axios.get(`${BASE_URL}/api/routineIDs`);
   return res.data;
 }
 
@@ -53,7 +53,7 @@ export async function postRoutineWithExercises(routine, exerciseList) {
       exerciseList,
     };
 
-    const res = await axios.post("http://localhost:3001/api/postRoutines", payload);
+    const res = await axios.post(`${BASE_URL}/api/postRoutines`, payload);
 
     return res.data; 
   } catch (error) {
@@ -64,12 +64,12 @@ export async function postRoutineWithExercises(routine, exerciseList) {
 
 
 export async function signup(email, password, inviteCode) {
-  const res = await axios.post("http://localhost:3001/api/auth/signup", { email, password, inviteCode });
+  const res = await axios.post(`${BASE_URL}/api/auth/signup`, { email, password, inviteCode });
   return res.data;
 }
 
 export async function login(email, password) {
-  const res = await axios.post("http://localhost:3001/api/auth/login", { email, password });
+  const res = await axios.post(`${BASE_URL}/api/auth/login`, { email, password });
   return res.data;
 }
 
