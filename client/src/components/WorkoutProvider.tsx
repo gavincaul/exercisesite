@@ -1,30 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export interface Exercise {
-  name: string;
-  length: number;
-  anatomyImg?: string;
-  exerciseImg?: string;
-  rate?: { sets: number; reps: number };
-  description?: { inst: string; rest: number };
-}
-
-interface WorkoutContextType {
-  title: string;
-  current: Exercise;
-  exercises: Exercise[];
-  timeLeft: number;
-  index: number;
-  isRunning: boolean;
-  isResting: boolean;
-  setCount: number;
-  pause: () => void;
-  resume: () => void;
-  skip: () => void;
-  reset: () => void;
-  done: boolean;
-  restSeconds: number;
-}
+import { Exercise } from "../interfaces/exercise.tsx";
+import { WorkoutContextType } from "../interfaces/workout.tsx";
 
 const WorkoutContext = createContext(
   null as unknown as WorkoutContextType | null
@@ -42,13 +19,12 @@ export function WorkoutProvider({
   const [index, setIndex] = useState(0);
   const [setCount, setSetCount] = useState(1);
   const [isResting, setIsResting] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(exercises[0]?.length || 0);
+  const [timeLeft, setTimeLeft] = useState(exercises[0]?.time || 0);
   const [isRunning, setIsRunning] = useState(true);
   const [done, setDone] = useState(false);
-
   const current = exercises[index];
-  const totalSets = current.rate?.sets ?? 1;
-  const restSeconds = current.description?.rest || 30;
+  const totalSets = current.sets && current.sets > 0 ? current.sets : 1;
+  const restSeconds = current.rest || 30;
 
   useEffect(() => {
     if (!isRunning || done) return;
@@ -67,11 +43,11 @@ export function WorkoutProvider({
 
       setIsResting(false);
       if (setCount <= totalSets) {
-        setTimeLeft(current.length);
+        setTimeLeft(current.time || 180);
       }
       return;
     }
-
+    
     if (setCount < totalSets) {
   
       setIsResting(true);
@@ -80,7 +56,7 @@ export function WorkoutProvider({
     } else if (index + 1 < exercises.length) {
      
       setIsResting(true);
-      setTimeLeft(120);
+      setTimeLeft(restSeconds);
       setSetCount(1);
       setTimeout(() => {
         setIndex((i) => i + 1);
@@ -96,9 +72,14 @@ export function WorkoutProvider({
   const pause = () => setIsRunning(false);
   const resume = () => setIsRunning(true);
   const skip = () => {
+    if (isResting) {
+      setIsResting(false);
+      setTimeLeft(current.time || 180);
+      return;
+    }
     if (setCount < totalSets ) {
         setSetCount((s) => s + 1);
-        setTimeLeft(exercises[index].length);
+        setTimeLeft(exercises[index].time || 180);
         setIsResting(false);
         setIsRunning(true);
     }
@@ -107,7 +88,7 @@ export function WorkoutProvider({
       setIndex(index + 1);
       setSetCount(1);
       setIsResting(false);
-      setTimeLeft(exercises[index + 1].length);
+      setTimeLeft(exercises[index + 1].time || 180);
     } else {
       setDone(true);
       setIsRunning(false);
@@ -118,11 +99,17 @@ export function WorkoutProvider({
   const reset = () => {
     setSetCount(1);
     setIsResting(false);
-    setTimeLeft(exercises[index]?.length || 0);
+    setTimeLeft(exercises[index]?.time || 0);
     setDone(false);
     setIsRunning(true);
   };
-
+  const handleSetIndex = (newIndex: number) => {
+    setIndex(newIndex);
+    setSetCount(1);
+    setIsResting(false);
+    setTimeLeft(exercises[newIndex]?.time || 180);
+    setIsRunning(false);  
+  };
   return (
     <WorkoutContext.Provider
       value={{
@@ -140,6 +127,7 @@ export function WorkoutProvider({
         reset,
         done,
         restSeconds,
+        setIndex: handleSetIndex,
       }}
     >
       {children}

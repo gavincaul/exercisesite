@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
 }
-.title{
+.title {
   position: sticky;
   font-size: 3em;
   padding: 10px;
@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 5vh;
 }
 
 .sections {
@@ -103,6 +104,69 @@
   color: #333;
 }
 
+.muscle-role-taskbar {
+  width: 100%;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.muscle-role-button {
+  flex-grow: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.muscle-role-button.selected {
+  background-color: #007bff;
+}
+
+.muscle-img-container {
+  max-height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.muscle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.muscle-role-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.muscle-img-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.muscle-img {
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.muscle-name {
+  font-size: 1.5rem;
+font-weight: bold;
+}
 .anatomy-img {
   max-width: 100%;
   height: auto;
@@ -126,4 +190,12 @@
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

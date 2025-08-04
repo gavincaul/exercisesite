@@ -16,9 +16,8 @@ export default function Countdown() {
     reset,
   } = useWorkout();
 
-  const totalDuration = isResting ? restSeconds : current.length;
+  const totalDuration = isResting ? restSeconds : current.time;
   const degree = (360 / totalDuration) * (totalDuration - timeLeft);
-  console.log(restSeconds);
 
   return (
     <div className="countdown">
@@ -26,10 +25,14 @@ export default function Countdown() {
         {isResting ? (
           <p>Resting...</p>
         ) : (
-          <>
-            <span className="set">{`Set ${setCount} of ${current.rate?.sets}`}</span>
-            <span className="rep">{`Reps ${current.rate?.reps}`}</span>
-          </>
+          <div>
+            {current.sets !== null && current.sets > 0 ? (
+              <span className="set">{`Set ${setCount} of ${current.sets}`}</span>
+            ) : null}{" "}
+            {current.reps !== null && current.reps > 0 ? (
+              <span className="rep">{`Reps: ${current.reps}`}</span>
+            ) : null}
+          </div>
         )}
       </div>{" "}
       <div className="part seconds">

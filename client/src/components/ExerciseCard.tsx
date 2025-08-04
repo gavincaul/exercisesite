@@ -3,23 +3,28 @@ import "./ExerciseCard.css";
 
 export interface Exercise {
   name: string;
-  length: number;
+  exercise_id: number;
   anatomyImg?: string;
   exerciseImg?: string;
-  rate?: { sets: number; reps: number };
-  description?: { inst: string; rest: number };
+  sets: number;
+  reps: number;
+  time?: number;
+  rest?: number;
+  instructions?: string;
 }
 
 export default function ExerciseCard({
   name,
-  length,
+  exercise_id,
   anatomyImg,
   exerciseImg,
-  rate,
-  description,
-}: ExerciseProps) {
+  sets,
+  reps,
+  time,
+  rest,
+  instructions,
+}: Exercise) {
   const [expanded, setExpanded] = useState(false);
-
   return (
     <div
       className={`exercise-card ${expanded ? "expanded" : ""}`}
@@ -28,20 +33,30 @@ export default function ExerciseCard({
       <div className="exercise-summary">
         <img src={exerciseImg} alt={name} className="exercise-img" />
         <div className="exercise-name">{name}</div>
-        <div className="exercise-timer">{length}s</div>
-        <div className="exercise-rate">
-          {rate.sets} x {rate.reps}
-        </div>
+        {time !== null ? <div className="exercise-timer">{time}s</div> : <></>}
+        {sets !== null ? (
+          <div className="exercise-rate">
+            {sets}
+            {reps !== 0 && reps !== null ? " " : ""}x {reps}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       {expanded && (
         <div className="exercise-details">
           <p>
-            <strong>Instructions:</strong> {description.inst}{" "}
+            <strong>Instructions:</strong> {instructions}{" "}
           </p>
-          <p>
-            <strong>Rest Time:</strong> {description.rest}
-          </p>
+
+          {rest !== null ? (
+            <p>
+              <strong>Rest Time:</strong> {rest}s{" "}
+            </p>
+          ) : (
+            <></>
+          )}
         </div>
       )}
     </div>

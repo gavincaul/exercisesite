@@ -36,16 +36,23 @@ export default function NavBar({ color }) {
             <NavLink
               to="/muscles-encyclopedia"
               className="navlink"
-              style={{ animationDelay: "400ms" }}
+              style={{ animationDelay: "500ms" }}
             >
               {isMobile ? "📚" : "Muscles"}
             </NavLink>
-            <NavLink
+            {/*<NavLink
               to="/about"
               className="navlink"
               style={{ animationDelay: "600ms" }}
             >
               {isMobile ? "📄" : "About"}
+            </NavLink>*/}
+            <NavLink
+              to="/login"
+              className="navlink"
+              style={{ animationDelay: "700ms" }}
+            >
+              {isMobile ? "A" : "Account"}
             </NavLink>
           </div>
         </nav>

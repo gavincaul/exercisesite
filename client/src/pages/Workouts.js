@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GroupedExercises from "../components/GroupedExercises.tsx";
-import { getGlobalWorkouts } from "../components/movementService.js";
+import {
+  getGlobalWorkouts,
+  getUser,
+  getUserWorkouts,
+} from "../components/movementService.js";
 import "./Exercise.css";
 import NavBar from "../components/NavBar.tsx";
 
@@ -9,24 +13,30 @@ export default function Workouts() {
   const navigate = useNavigate();
   const [openGroupTitle, setOpenGroupTitle] = useState(null);
   const [activeTab, setActiveTab] = useState("my");
-  const [movements, setMovements] = useState([]);
-
-  const myWorkouts = [
-    {
-      title: "My Upper Body",
-      exercises: [
-        { id: 1, name: "Push-up" },
-        { id: 2, name: "Pull-up" },
-      ],
-    },
-  ];
+  const [globalMovements, setGlobalMovements] = useState([]);
+  const [userMovements, setUserMovements] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    getGlobalWorkouts().then(setMovements).catch(console.error);
+    setIsLoading(true);
+    if (user?.id) {
+      getUserWorkouts(user.id)
+        .then(setUserMovements)
+        .catch(console.error)
+        .finally(() => setIsLoading(false));
+    }
+  }, [user]);
+  useEffect(() => {
+    setIsLoading(true);
+    setUser(getUser());
+    getGlobalWorkouts()
+      .then(setGlobalMovements)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   }, []);
-  console.log(movements);
 
-  const displayedData = activeTab === "my" ? myWorkouts : movements;
+  const displayedData = activeTab === "my" ? userMovements : globalMovements;
 
   const toggleGroup = (title) => {
     setOpenGroupTitle((prev) => (prev === title ? null : title));
@@ -109,40 +119,87 @@ export default function Workouts() {
 
         <div className="main-content scrolling">
           <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-            <button
-              onClick={() => navigate("/create-workout")}
-              className="section"
-              style={{
-                width: "fit-content",
-                padding: "0.5rem 1rem",
-                backgroundColor: "#28a745",
-                color: "white",
-                borderRadius: "8px",
-                fontSize: "1rem",
-              }}
-            >
-              Create a Workout
-            </button>
+            {activeTab === "global" ? null : user ? (
+              <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+                <button
+                  onClick={() => navigate("/create-workout")}
+                  className="section"
+                  style={{
+                    width: "fit-content",
+                    padding: "0.5rem 1rem",
+                    backgroundColor: "#28a745",
+                    color: "white",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Create a Workout
+                </button>
+              </div>
+            ) : (
+              <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "#555",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Log in to access your saved workouts.
+                </p>
+                <button
+                  onClick={() => navigate("/login")}
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Log In / Sign Up
+                </button>
+              </div>
+            )}
           </div>
-          {displayedData.length === 0 ? (
+          {isLoading ? (
+            <div style={{ textAlign: "center", padding: "2rem" }}>
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  border: "4px solid #ccc",
+                  borderTop: "4px solid #28a745",
+                  borderRadius: "50%",
+                  animation: "spin 1s linear infinite",
+                  margin: "0 auto",
+                }}
+              />
+              <p style={{ marginTop: "1rem", color: "#666" }}>
+                Loading workouts...
+              </p>
+            </div>
+          ) : displayedData.length === 0 ? (
             <p style={{ textAlign: "center", color: "#666" }}>
               No workouts available.
             </p>
           ) : (
             displayedData.map((group) => (
-              <div key={group.title} className="group">
+              <div key={group.routine_id} className="group">
                 <button
                   className={`section ${
-                    openGroupTitle === group.title ? "active" : ""
+                    openGroupTitle === group.routine_id ? "active" : ""
                   }`}
-                  onClick={() => toggleGroup(group.title)}
+                  onClick={() => toggleGroup(group.routine_id)}
                 >
-                  {group.title}
+                  {group.routine_name}
                 </button>
 
-                {openGroupTitle === group.title && (
+                {openGroupTitle === group.routine_id && (
                   <>
-                    <GroupedExercises groupedData={[group]} />
+                    <GroupedExercises groupedData={group} />
                     <div style={{ textAlign: "center", marginTop: "1rem" }}>
                       <button
                         onClick={() =>
@@ -161,7 +218,7 @@ export default function Workouts() {
                           fontSize: "1rem",
                         }}
                       >
-                        Start {group.title}
+                        Start
                       </button>
                     </div>
                   </>

@@ -7,6 +7,7 @@ import MusclesEncyclopedia from "./pages/MusclesEncyclopedia.js";
 import About from "./pages/About.js";
 import Workouts from "./pages/Workouts.js";
 import CreateWorkout from "./pages/CreateWorkout.js";
+import LoginPage from "./pages/SignupLogin.js";
 
 function App() {
   return (
@@ -14,9 +15,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/exercise" element={<Exercise />} />
-          <Route path="/movement-encyclopedia" element={<MovementEncyclopedia />} />
-          <Route path="/muscles-encyclopedia" element={<MusclesEncyclopedia />} />
+          <Route
+            path="/movement-encyclopedia"
+            element={<MovementEncyclopedia />}
+          />
+          <Route
+            path="/muscles-encyclopedia"
+            element={<MusclesEncyclopedia />}
+          />
           <Route path="/about" element={<About />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/create-workout" element={<CreateWorkout />} />
           <Route path="/" element={<Workouts />} />
           <Route exact path="*" element={<Workouts />} />
