@@ -100,7 +100,7 @@ function ExerciseLayout() {
                       <div className="muscle-name">{m.muscle_name}</div>
                       <img
                         className="muscle-img"
-                        src={`/anatomy/${m.muscle_name.replace(
+                        src={`${process.env.PUBLIC_URL}/anatomy/${m.muscle_name.replace(
                           /\s+/g,
                           "_"
                         )}.jpg`}
@@ -158,10 +158,10 @@ export default function Exercise() {
   const flatExercises = group.exercises.map((ex) => ({
     ...ex,
     name: ex.movement_name || `Exercise #${ex.exercise_id}`,
-    anatomyImg: `/anatomy/${(ex.movement_name || "")
+    anatomyImg: `${process.env.PUBLIC_URL}/anatomy/${(ex.movement_name || "")
       .replace(/\s*[-–]\s*/g, "-")
       .replace(/\s+/g, "_")}.jpg`,
-    exerciseImg: `/anatomy/${(ex.movement_name || "")
+    exerciseImg: `${process.env.PUBLIC_URL}/anatomy/${(ex.movement_name || "")
       .replace(/\s*[-–]\s*/g, "-")
       .replace(/\s+/g, "_")}.jpg`,
   }));

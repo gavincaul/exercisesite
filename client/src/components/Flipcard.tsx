@@ -48,7 +48,7 @@ export default function FlipCard({ flippedState, movement, muscles, m }) {
 
           <div className="movement-card-front">
             <img
-              src={`/anatomy/${movement.name
+              src={`${process.env.PUBLIC_URL}/anatomy/${movement.name
                 .replace(/\s*[-–]\s*/g, "-")
                 .replace(/\s+/g, "_")}.jpg`}
               alt={movement.name}
@@ -119,7 +119,7 @@ export default function FlipCard({ flippedState, movement, muscles, m }) {
             </button>
             <h2>{movement.name}</h2>
             <img
-              src={`/anatomy/${movement.name
+              src={`${process.env.PUBLIC_URL}/anatomy/${movement.name
                 .replace(/\s*[-–]\s*/g, "-")
                 .replace(/\s+/g, "_")}.jpg`}
               alt={movement.name}
