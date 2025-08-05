@@ -33,23 +33,25 @@ jobs:
           value: ${{ steps.get-repo-values.outputs.url }}
 
       - name: Install dependencies
-        run: cd client && npm ci
+        run: npm ci
+        working-directory: client
         
       - name: Create GitHub redirect page
         run: |
           echo "<html><head><meta http-equiv='refresh' content='0; URL=${{github.server_url}}/${{github.repository}}' /></head><body>Redirecting to repository</body></html>" > client/public/github.html
 
       - name: Build app
-        run: cd client && npm run build --if-present
+        run: npm run build --if-present
+        working-directory: client
 
       - name: Deploy to GitHub Pages
         run: |
-          cd client
           git config --global user.name "${{ env.user_name }}"
           git config --global user.email "${{ env.user_email }}"
           git remote set-url origin https://${{ env.github_token }}@github.com/${{ env.repository }}
           npm run predeploy
           npm run deploy
+        working-directory: client
         env:
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
