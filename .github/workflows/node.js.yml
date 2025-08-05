@@ -44,6 +44,9 @@ jobs:
       - name: Build app
         run: npm run build --if-present
         working-directory: client
+        
+      - name: Disable Jekyll on GitHub Pages
+        run: echo "" > client/build/.nojekyll
 
       - name: Deploy to GitHub Pages
         run: |
