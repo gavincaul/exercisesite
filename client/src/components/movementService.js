@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://exercisesite-1e7b88b40e5c.herokuapp.com/";
+const BASE_URL = "https://exercisesite-1e7b88b40e5c.herokuapp.com";
 export async function getAllMovements() {
   const res = await axios.get(`${BASE_URL}/api/movement`);
   return res.data;
