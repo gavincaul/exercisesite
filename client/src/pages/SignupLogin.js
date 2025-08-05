@@ -39,7 +39,7 @@ export default function LoginPage() {
           setLoading(false);
           return;
         }
-        const data = await signup(email, password, inviteCode);
+        await signup(email, password, inviteCode);
         alert("Signup successful! Please log in.");
         setIsSignup(false);
       } else {
