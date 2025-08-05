@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: client/package-lock.json
 
       - id: get-repo-values
         run: echo "url=https://gavincaul.github.io/exercisesite" >> $GITHUB_OUTPUT
