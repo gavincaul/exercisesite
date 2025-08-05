@@ -42,10 +42,10 @@ export default function GroupedExercises({ groupedData }) {
               name={
                 exercise.movement_name || `Exercise #${exercise.exercise_id}`
               }
-              anatomyImg={`/anatomy/${exercise.movement_name
+              anatomyImg={`${process.env.PUBLIC_URL}/anatomy/${exercise.movement_name
                 .replace(/\s*[-–]\s*/g, "-")
                 .replace(/\s+/g, "_")}.jpg`}
-              exerciseImg={`/anatomy/${exercise.movement_name
+              exerciseImg={`${process.env.PUBLIC_URL}/anatomy/${exercise.movement_name
                 .replace(/\s*[-–]\s*/g, "-")
                 .replace(/\s+/g, "_")}.jpg`}
               sets={exercise.sets}
