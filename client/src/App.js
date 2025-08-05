@@ -12,7 +12,7 @@ import LoginPage from "./pages/SignupLogin.js";
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename="/exercisesite">
         <Routes>
           <Route path="/exercise" element={<Exercise />} />
           <Route
